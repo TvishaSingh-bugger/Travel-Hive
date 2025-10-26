@@ -1,57 +1,71 @@
 from authentication import register,login
-from touristspot import addPlaces,viewPlaces
-from hotelsAndrestaurants import addHotelorRestaurants
-from review import addReview,viewReview
-from rating import addRating
-def main_menu():
-    while True:
-        print("Tourist Spot Review System\n")
-        print("1. Register\n")
-        print("2. Login\n")
-        print("3. Exit\n")
+from spots import addSpot,viewSpot,searchSpot
+from reviews import addReview,viewReview
+from quesAns import askQues,ansQues,viewQuestion
+from hotels import addHotel,viewHotels,searchHotel
 
-        choice = input("Enter your choice: ").strip()
 
-        if choice == "1":
-            register()
-        elif choice == "2":
-            if login():
-                user_dashboard()
-        elif choice == "3":
-            print("Exiting system...")
-            break
-        else:
-            print("Invalid choice! Try again.")
-def user_dashboard():
-    while True:
-        print("1. View Tourist Spots\n")
-        print("2. Add Tourist Spot\n")
-        print("3. Add Hotel/Restaurant\n")
-        print("4. Add Review\n")
-        print("5. View Reviews\n")
-        print("6. View Ratings\n")
-        print("7. Logout")
 
-        choice = input("Enter your choice: ").strip()
+currentUser=None
+while True:
+  print("Tourist Spot Review System")
+  print("1.Register")
+  print("2.Login")
+  print("3.Add Spot")
+  print("4.View Spot")
+  print("5.Search Spot")
+  print("6.Add Review")
+  print("7.View Reviews")
+  print("8.Ask Questions")
+  print("9.View Questions")
+  print("10.Add Answer to Question")
+  print("11.Add Hotel")
+  print("12.View Hotel")
+  print("13.Search Hotel")
+  print("14.Exit")
 
-        if choice == "1":
-            viewPlaces()
-        elif choice == "2":
-            addPlaces()
-        elif choice == "3":
-            addHotelorRestaurants()
-        elif choice == "4":
-            viewPlaces()
-            num = input("Enter Spot Number to review: ").strip()
-            addReview(num)
-        elif choice == "5":
-            num = input("Enter Spot Number to view reviews: ").strip()
-            viewReview(num)
-        elif choice == "6":
-            num = input("Enter Spot Number to view reviews: ").strip()
-            addRating()
+  choice=input("Enter your choice(1-14):")
+  if choice=="1":
+    register()
+  elif choice=="2":
+    currentUser=login()
+  elif choice=="3":
+    addSpot()
+  elif choice=="4":
+    viewSpot()
+  elif choice=="5":
+    searchSpot()
+  elif choice=="6":
+    if currentUser:
+      addReview(currentUser)
+    else:
+      print("You are not logged in!")
+  elif choice=="7":
+    viewReview()
+  elif choice=="8":
+    if currentUser:
+      askQues(currentUser)
+    else:
+      print("You are not logged in")
+  elif choice=="9":
+    viewQuestion()
+  elif choice=="10":
+    ansQues()
+
+  elif choice=="11":
+    addHotel()
+  elif choice=="12":
+    viewHotels()
+  elif choice=="13":
+    searchHotel()
+  elif choice=="14":
+    print("Exiting..")
+    break
+  else:
+    print("Invalid choice!")
         elif choice=="7":
             print("Logging Out...\n")
             break
         else:
+
             print("Invalid choice! Try again.")
