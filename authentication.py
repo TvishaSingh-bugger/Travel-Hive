@@ -1,23 +1,26 @@
-# User authentication
-
 def register():
-  name=input("Enter Your Name:")
-  email=input("Enter Your Email:")
-  password=input("Enter Your Password:")
+  username=input("Enter your username:")
+  password=input("Enter your password:")
 
   with open("users.txt","a") as f:
-    f.write(f"{name},{email},{password}\n")
-  print("Account successfully created!\n")
+    f.write(f"{username},{password}\n")
+
+  print("Registration successful!")
+
 
 def login():
-  email_login=input("Enter your email:")
-  password_login=input("Enter password:")
+  username=input("Enter your username:")
+  password=input("Enter your password:")
 
-  with open("users.txt","r") as f:
-    lines=f.readlines()
-  for line in lines:
-    name,email_saved,password_saved=line.strip().split(",")
-    if(email_login==email_saved and password_login==password_saved):
-      print(f"Welcome {name}\n")
-      return
-  print("Invalid Credentials!\n")
+  try:
+    with open("users.txt","r") as f:
+      for line in f:
+        userName,passWord=line.strip().split(",")
+        if userName==username and passWord==password:
+          print(f"Successfully logged in!")
+          return username
+    print("Invalid Credentials!")
+    return None
+  except:
+    print("No user found!")
+    return None
